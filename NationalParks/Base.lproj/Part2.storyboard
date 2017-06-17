@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="slM-Ft-IEr">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="9q0-jY-2fK">
+            <objects>
+                <tabBarController id="slM-Ft-IEr" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="RNj-lN-xkE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="kzP-gh-g81" kind="relationship" relationship="viewControllers" id="nJt-kD-jLj"/>
+                        <segue destination="Alg-ns-reo" kind="relationship" relationship="viewControllers" id="eGa-Re-Hlo"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n0W-ic-wwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-186" y="198"/>
+        </scene>
+        <!--Table-->
+        <scene sceneID="UpM-a4-Kfc">
+            <objects>
+                <tableViewController id="kzP-gh-g81" customClass="TableViewController" customModule="NationalParks" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="163" sectionHeaderHeight="28" sectionFooterHeight="28" id="SUo-H4-T85">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="163" id="rjM-Um-gAF" customClass="TableViewCell" customModule="NationalParks" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="163"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjM-Um-gAF" id="I97-gy-W48">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAr-Lp-s4c">
+                                            <rect key="frame" x="8" y="49" width="388" height="63"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="63" id="xYA-fb-ygK"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            </variation>
+                                            <variation key="widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="8" y="64" width="626" height="21"/>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                            </variation>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wP9-9u-MaF">
+                                            <rect key="frame" x="404" y="6" width="188" height="150"/>
+                                            <color key="backgroundColor" red="0.21648706009999999" green="0.77880349670000004" blue="0.79042467949999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="188" id="9fa-Zb-lyf">
+                                                    <variation key="heightClass=compact" constant="235"/>
+                                                </constraint>
+                                                <constraint firstAttribute="height" constant="150" id="Pk7-Ng-dNl"/>
+                                            </constraints>
+                                            <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
+                                                <rect key="frame" x="642" y="25" width="150" height="100"/>
+                                            </variation>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="xAr-Lp-s4c" firstAttribute="top" secondItem="I97-gy-W48" secondAttribute="topMargin" constant="41" id="MVe-bk-D3H"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xAr-Lp-s4c" secondAttribute="trailing" constant="196" id="aqY-qV-nST">
+                                            <variation key="heightClass=compact" constant="251"/>
+                                        </constraint>
+                                        <constraint firstAttribute="trailingMargin" secondItem="wP9-9u-MaF" secondAttribute="trailing" id="dPq-HY-ESI"/>
+                                        <constraint firstItem="wP9-9u-MaF" firstAttribute="centerY" secondItem="I97-gy-W48" secondAttribute="centerY" constant="-0.5" id="dp6-sw-krx"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="xAr-Lp-s4c" secondAttribute="leading" id="juI-ol-fES"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xAr-Lp-s4c" secondAttribute="trailing" id="qQu-dr-Jxg"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="qQu-dr-Jxg"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="captionLabel" destination="xAr-Lp-s4c" id="Kfo-sB-Lnj"/>
+                                    <outlet property="parkImageView" destination="wP9-9u-MaF" id="kbK-H8-wTE"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kzP-gh-g81" id="TWi-Tb-GOy"/>
+                            <outlet property="delegate" destination="kzP-gh-g81" id="W1k-0v-vHg"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Table" image="Table" id="kbS-v2-jts"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aoO-tw-0aG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="573" y="182"/>
+        </scene>
+        <!--Collection-->
+        <scene sceneID="xu3-7g-8AG">
+            <objects>
+                <collectionViewController id="Alg-ns-reo" customClass="CollectionViewController" customModule="NationalParks" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" id="o6T-XE-ZQt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jZA-We-1Gk">
+                            <size key="itemSize" width="255" height="195"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="Rbg-e3-PsI" customClass="CollectionViewCell" customModule="NationalParks" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="255" height="195"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="255" height="195"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A9q-On-4B2">
+                                            <rect key="frame" x="4" y="8" width="243" height="173"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="243" id="HIl-D5-uB5"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="A9q-On-4B2" secondAttribute="bottom" constant="6" id="4YU-KU-A85"/>
+                                    <constraint firstItem="A9q-On-4B2" firstAttribute="top" secondItem="Rbg-e3-PsI" secondAttribute="topMargin" id="JeJ-cY-ibZ"/>
+                                    <constraint firstItem="A9q-On-4B2" firstAttribute="centerX" secondItem="Rbg-e3-PsI" secondAttribute="centerX" constant="-2" id="utx-C2-Zjd"/>
+                                    <constraint firstItem="A9q-On-4B2" firstAttribute="leading" secondItem="Rbg-e3-PsI" secondAttribute="leadingMargin" constant="-4" id="yHB-Gc-hzt"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="parkImageView" destination="A9q-On-4B2" id="4Zb-NM-SLd"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="4SF-hg-DEU" customClass="HeaderReusableView" customModule="NationalParks" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-X0-sZ2">
+                                    <rect key="frame" x="8" y="16" width="584" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="CmC-X0-sZ2" firstAttribute="top" secondItem="4SF-hg-DEU" secondAttribute="top" constant="16" id="8Bk-d0-nQ2"/>
+                                <constraint firstItem="CmC-X0-sZ2" firstAttribute="trailing" secondItem="4SF-hg-DEU" secondAttribute="trailingMargin" id="8mp-qd-My5"/>
+                                <constraint firstItem="CmC-X0-sZ2" firstAttribute="leading" secondItem="4SF-hg-DEU" secondAttribute="leadingMargin" id="EmZ-Y0-SA1"/>
+                                <constraint firstAttribute="bottom" secondItem="CmC-X0-sZ2" secondAttribute="bottom" id="odv-yN-vcQ"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="headerLabel" destination="CmC-X0-sZ2" id="KKY-r6-gT3"/>
+                            </connections>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="Alg-ns-reo" id="hbn-di-uu6"/>
+                            <outlet property="delegate" destination="Alg-ns-reo" id="aSl-Wr-1dc"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Collection" image="Collection" id="FXK-sR-4aH"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CQS-be-8fe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="598" y="1090"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Collection" width="30" height="30"/>
+        <image name="Table" width="30" height="30"/>
+    </resources>
+</document>
