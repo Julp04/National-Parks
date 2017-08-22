@@ -17,10 +17,10 @@ class ParkModel {
     
     static let sharedInstance = ParkModel()
     
-    private init() {
-        let path = NSBundle.mainBundle().pathForResource("Photos", ofType: "plist")
+    fileprivate init() {
+        let path = Bundle.main.path(forResource: "Photos", ofType: "plist")
         
-        if let array = NSArray(contentsOfFile: path!) as? [AnyObject] {
+        if let array = NSArray(contentsOfFile: path!) as [AnyObject]? {
             for element in array {
                 let photos = element as! [String:AnyObject]
                 
@@ -32,7 +32,7 @@ class ParkModel {
                     }
                     
                     if key == "photos" {
-                        let photos = value as! NSArray
+                        let photos = value as! [NSDictionary]
                         var photosArray =  [Photo]()
                         for element in photos {
                             let detailImageName = element["imageName"] as! String
@@ -51,19 +51,19 @@ class ParkModel {
 
     }
     
-    func photoInAlbumAtIndex(albumIndex:Int, photoIndex: Int) -> Photo {
+    func photoInAlbumAtIndex(_ albumIndex:Int, photoIndex: Int) -> Photo {
         let album = allPhotos[albumIndex]
         let photo = album[photoIndex]
         return photo
     }
     
-    func lengthOfAlbumAtIndex(albumIndex:Int) -> Int
+    func lengthOfAlbumAtIndex(_ albumIndex:Int) -> Int
     {
         let album = allPhotos[albumIndex]
         return album.count
     }
     
-    func parkTitleAtIndex(index:Int) -> String {
+    func parkTitleAtIndex(_ index:Int) -> String {
         return titles[index]
     }
 }

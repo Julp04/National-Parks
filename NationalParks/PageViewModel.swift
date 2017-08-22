@@ -10,14 +10,14 @@ import Foundation
 
 class PageViewModel {
     
-    private let imageNames = ["image0", "image1", "image2"]
-    private let descriptions = ["Touch the sections to hide images!", "Select cells to transition to full image view!", "A full image view with caption and park title is displayed!"]
+    fileprivate let imageNames = ["image0", "image1", "image2"]
+    fileprivate let descriptions = ["Touch the sections to hide images!", "Select cells to transition to full image view!", "A full image view with caption and park title is displayed!"]
     
-    func imageNameAtIndex(index:Int) -> String {
+    func imageNameAtIndex(_ index:Int) -> String {
         return imageNames[index]
     }
     
-    func descriptionAtIndex(index:Int) -> String {
+    func descriptionAtIndex(_ index:Int) -> String {
         return descriptions[index]
     }
     

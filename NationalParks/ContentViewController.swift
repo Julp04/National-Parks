@@ -24,22 +24,22 @@ class ContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.clear
         imageView.image = UIImage(named:imageName)
         descriptionLabel.text = descriptionText
-        descriptionLabel.textColor = UIColor.whiteColor()
+        descriptionLabel.textColor = UIColor.white
         
         
-        descriptionLabel.textAlignment = .Center;
+        descriptionLabel.textAlignment = .center;
         if buttonHidden {
-            doneButton.hidden = true
+            doneButton.isHidden = true
         }else {
-            doneButton.hidden = false
+            doneButton.isHidden = false
         }
         
     }
     
-    func configureWithDescription(description:String,imageName:String, atIndex index:Int, buttonHidden:Bool)
+    func configureWithDescription(_ description:String,imageName:String, atIndex index:Int, buttonHidden:Bool)
     {
         self.imageName = imageName
         self.descriptionText = description

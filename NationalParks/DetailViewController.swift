@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
         
     }
     
-    func configureDetailView(imageName:String, caption:String, title:String)
+    func configureDetailView(_ imageName:String, caption:String, title:String)
     {
         self.imageName = imageName
         self.caption = caption

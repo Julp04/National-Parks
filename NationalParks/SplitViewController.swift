@@ -17,7 +17,7 @@ class SplitViewController: UISplitViewController, UISplitViewControllerDelegate 
     }
     
     //Used so that table view appears first
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
       
         return true
     }

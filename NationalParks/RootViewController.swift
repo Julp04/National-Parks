@@ -28,16 +28,16 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         super.viewDidLoad()
 
         // Create & initialize the pageView Controller
-        pageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
+        pageViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageViewController") as? UIPageViewController
         pageViewController!.dataSource = self
         pageViewController?.delegate = self
-        self.pageViewController!.setViewControllers([viewControllerAtIndex(0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+        self.pageViewController!.setViewControllers([viewControllerAtIndex(0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
         
         
         //Set RootView as container controller
         pageViewController!.view.frame = self.view.bounds
         self.addChildViewController(pageViewController!)
-        pageViewController!.didMoveToParentViewController(self)
+        pageViewController!.didMove(toParentViewController: self)
         self.view.addSubview(pageViewController!.view)
         
         pageControl.numberOfPages = pageViewModel.numberOfPages()
@@ -46,8 +46,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     }
     
     
-    func viewControllerAtIndex(index:Int) -> UIViewController {
-        let contentViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ContentViewController") as! ContentViewController
+    func viewControllerAtIndex(_ index:Int) -> UIViewController {
+        let contentViewController = self.storyboard!.instantiateViewController(withIdentifier: "ContentViewController") as! ContentViewController
         
         imageName = pageViewModel.imageNameAtIndex(index)
         
@@ -68,7 +68,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     
     //MARK: PageView Controller Data Source
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let contentViewController = viewController as! ContentViewController
         
         var index = contentViewController.pageIndex
@@ -81,7 +81,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         }
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let contentViewController = viewController as! ContentViewController
         
         var index = contentViewController.pageIndex
@@ -97,21 +97,21 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     }
     
     //Using delegate mehtod to get the current view controller that we are at when we have finished paging to set the pageControl index
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if let contentVC = pageViewController.viewControllers?.last as? ContentViewController {
            pageControl.currentPage = contentVC.pageIndex
             
             switch contentVC.pageIndex {
             case 0:
-                previousLabel.hidden = true
-                nextLabel.hidden = false
+                previousLabel.isHidden = true
+                nextLabel.isHidden = false
             case pageViewModel.numberOfPages() - 1:
-                previousLabel.hidden = false
-                nextLabel.hidden = true
+                previousLabel.isHidden = false
+                nextLabel.isHidden = true
             default:
-                previousLabel.hidden = false
-                nextLabel.hidden = false
+                previousLabel.isHidden = false
+                nextLabel.isHidden = false
                 
             }
         }

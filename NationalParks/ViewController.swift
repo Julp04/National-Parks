@@ -51,8 +51,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
         let contentSize = CGSize(width: size.width * CGFloat(horizontalPageCount), height: size.height)
         
         scrollView.contentSize = contentSize
-        scrollView.pagingEnabled = true
-        scrollView.directionalLockEnabled = true
+        scrollView.isPagingEnabled = true
+        scrollView.isDirectionalLockEnabled = true
         scrollView.tag = 1 //Set to distinguish which scrollView you are using in delegate
         
         scrollView.delegate = self
@@ -82,8 +82,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
             let labelFrame = CGRect(x: 0.0, y: kLabelYOffset, width: size.width, height: kLabelHeight)
             let label = UILabel(frame: labelFrame)
             label.font = UIFont(name: "Georgia", size: kLabelFontSize)
-            label.textColor = UIColor.whiteColor()
-            label.textAlignment = .Center
+            label.textColor = UIColor.white
+            label.textAlignment = .center
         
             label.text = title
             pageView.addSubview(label)
@@ -104,8 +104,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
                 let name = photo.imageName
                 let image = UIImage(named:name)
                 let imageView = UIImageView(image: image)
-                imageView.frame = CGRectMake(0.0, kImageViewYOffset, size.width, size.height/2)
-                imageView.contentMode = .ScaleAspectFit
+                imageView.frame = CGRect(x: 0.0, y: kImageViewYOffset, width: size.width, height: size.height/2)
+                imageView.contentMode = .scaleAspectFit
                 
                 addScrollViewToPageView(pageView2, withImage: image!)
                 
@@ -124,18 +124,18 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
      - parameter pageView: current pageView that is adding the scroll view
      - parameter image:    image to be added onto scrollView
      */
-    func addScrollViewToPageView(pageView:UIView, withImage image:UIImage)
+    func addScrollViewToPageView(_ pageView:UIView, withImage image:UIImage)
     {
         let size = view.bounds.size
         
         
         let imageView = UIImageView(image: image)
-        imageView.frame = CGRectMake(0.0, 0.0, size.width, size.height/2) 
-        imageView.contentMode = .ScaleAspectFit
+        imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height/2) 
+        imageView.contentMode = .scaleAspectFit
         
         imageView.center = view.center
         
-        let scrollViewFrame = CGRectMake(0.0, 0.0, view.bounds.size.width, view.bounds.size.height)
+        let scrollViewFrame = CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height)
         let photoScrollView = UIScrollView(frame: scrollViewFrame)
         photoScrollView.minimumZoomScale = kMinZoomScale
         photoScrollView.maximumZoomScale = kMaxZoomScale
@@ -153,7 +153,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
     //Note in scrollView deleagates we check the tag of the scrollView first to determine if it is the main scrollView of a sub scrollView used for zooming in and out. This helps us handle different effects for different situations
     
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
     {
         
         if scrollView.tag == 1 || scrollView.zoomScale == 1{
@@ -172,7 +172,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
  
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView)
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         if scrollView.tag == 1 || scrollView.zoomScale == 1 {
             if scrollView.contentOffset.y > 0 {
@@ -185,13 +185,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
         
         
     
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if scrollView.tag == 1 || scrollView.zoomScale == 1{
             hideArrows()
         }
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         
         if scrollView.tag == 1 || scrollView.zoomScale != 1{
@@ -201,22 +201,22 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
 
     }
     
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if scrollView.tag == 1 || scrollView.zoomScale == 1{
             
         }else {
             if scrollView.zoomScale < 1 {
                 //When we are zooming in a scroll view that is not the main view, and the zoom scale is less than one, that means we can page between different photos
-                self.scrollView.pagingEnabled = true
+                self.scrollView.isPagingEnabled = true
                 
             }
             if scrollView.zoomScale > 1 {
                  //When we are zooming in a scroll view that is not the main view, and the zoom scale is greater than one. We are currently zoomed in on a photo and we want to pan on that photo and not page to another one so we set it to false
-                self.scrollView.pagingEnabled = false
+                self.scrollView.isPagingEnabled = false
 //                
 //                let imageView = scrollView.subviews[0] as! UIImageView
 //                scrollView.contentSize = imageView.bounds.size
@@ -228,7 +228,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
         
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         
         if scrollView.tag == 1 {
             return nil
@@ -246,7 +246,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
     //MARK:-Useful Functions
     
     
-    func pageNumbersAtOffset(offset:CGPoint) -> (Int,Int) {
+    func pageNumbersAtOffset(_ offset:CGPoint) -> (Int,Int) {
         let pageWidth = view.bounds.size.width
         let horizontalPageNumber = Int(offset.x/pageWidth)
         
@@ -256,13 +256,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
         return (horizontalPageNumber, verticalPageNumber)
     }
     
-    func horizonalPageNumberAtOffset(offset:CGPoint) -> Int {
+    func horizonalPageNumberAtOffset(_ offset:CGPoint) -> Int {
         let pageWidth = view.bounds.size.width
         let pageNumber = Int(offset.x/pageWidth)
         return pageNumber
     }
     
-    func verticalPageNumberAtOffset(offset:CGPoint) -> Int {
+    func verticalPageNumberAtOffset(_ offset:CGPoint) -> Int {
         let pageHeight = view.bounds.size.height
         let pageNumber = Int(offset.y/pageHeight)
         return pageNumber
@@ -273,7 +273,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
      
      - parameter numberOfPhotos: number of photos per national park/album
      */
-    func setVerticalContentSizeForPhotos(numberOfPhotos:Int)
+    func setVerticalContentSizeForPhotos(_ numberOfPhotos:Int)
     {
         let size = self.view.bounds.size
         let y = size.height * CGFloat(numberOfPhotos)
@@ -285,53 +285,53 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognize
      
      - parameter numberOfPhotos: number of photos in album. Used for down arrow.
      */
-    func configureArrows(numberOfPhotos:Int)
+    func configureArrows(_ numberOfPhotos:Int)
     {
         if scrollView.contentOffset.y > 0 {
-            arrowRight.hidden = true
-            arrowLeft.hidden = true
+            arrowRight.isHidden = true
+            arrowLeft.isHidden = true
         }else {
-            arrowRight.hidden = false
-            arrowLeft.hidden = false
+            arrowRight.isHidden = false
+            arrowLeft.isHidden = false
             if horizontalPageNumber == 0 {
-                arrowLeft.hidden = true
+                arrowLeft.isHidden = true
             }
             
             if horizontalPageNumber == parkModel.numberOfPhotos - 1 {
-                arrowRight.hidden = true
+                arrowRight.isHidden = true
             }
         }
         
         
         if verticalPageNumber == 0 {
-            arrowUp.hidden = true
+            arrowUp.isHidden = true
         }else {
-            arrowUp.hidden = false
+            arrowUp.isHidden = false
         }
         
         if verticalPageNumber == numberOfPhotos - 1 {
-            arrowDown.hidden = true
+            arrowDown.isHidden = true
         }else {
-            arrowDown.hidden = false
+            arrowDown.isHidden = false
         }
     }
     
     func hideArrows()
     {
-        UIView.animateWithDuration(kAnimationDuration) {
+        UIView.animate(withDuration: kAnimationDuration, animations: {
             for arrow in self.arrows {
                 arrow.alpha = 0.0
             }
-        }
+        }) 
     }
     
     func showArrows()
     {
-        UIView.animateWithDuration(kAnimationDuration) {
+        UIView.animate(withDuration: kAnimationDuration, animations: {
             for arrow in self.arrows {
                 arrow.alpha = 1.0
             }
-        }
+        }) 
     }
     
 

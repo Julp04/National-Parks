@@ -16,7 +16,7 @@ class TableViewController: UITableViewController {
     var sectionCollapsed:[Bool] = []
    
     var scrollView:UIScrollView?
-    var imageSelectedIndex:NSIndexPath?
+    var imageSelectedIndex:IndexPath?
     
     let kHeaderHeight:CGFloat = 50.0
     let kLabelYOffset:CGFloat = 10.0
@@ -32,12 +32,12 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sectionCollapsed = Array(count: parkModel.numberOfPhotos, repeatedValue: false)
+        sectionCollapsed = Array(repeating: false, count: parkModel.numberOfPhotos)
         for i in 0..<sectionCollapsed.count {
             sectionCollapsed[i] = false
         }
         self.navigationController?.navigationBar.topItem?.title = "National Parks"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
     }
     
@@ -46,18 +46,18 @@ class TableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return parkModel.numberOfAlbums
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //If the section should be collapsed do not display any, else display the number of photos in the album
         return sectionCollapsed[section] ? 0 : parkModel.lengthOfAlbumAtIndex(section)
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath) as! TableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         
         let photo = parkModel.photoInAlbumAtIndex(indexPath.section, photoIndex: indexPath.row)
         
@@ -72,57 +72,57 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return kCellHeight
 
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return kHeaderHeight
     }
     
     
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0.0, width: self.view.frame.size.width, height: kHeaderHeight))
-        headerView.autoresizingMask = [.FlexibleWidth , .FlexibleHeight , .FlexibleLeftMargin , .FlexibleRightMargin , .FlexibleTopMargin , .FlexibleBottomMargin]
+        headerView.autoresizingMask = [.flexibleWidth , .flexibleHeight , .flexibleLeftMargin , .flexibleRightMargin , .flexibleTopMargin , .flexibleBottomMargin]
         let headerLabel = UILabel(frame: CGRect(x: kLabelXOffset, y: kLabelYOffset, width: self.view.frame.size.width, height: kHeaderHeight))
-        headerView.backgroundColor = UIColor.orangeColor()
-        headerLabel.textColor = UIColor.whiteColor()
+        headerView.backgroundColor = UIColor.orange
+        headerLabel.textColor = UIColor.white
         headerView.tag = section
-        headerView.layer.borderColor = UIColor.blackColor().CGColor
+        headerView.layer.borderColor = UIColor.black.cgColor
         headerView.layer.borderWidth = kBorderWidth
         headerLabel.text = parkModel.parkTitleAtIndex(section)
-        headerLabel.textAlignment = .Left
+        headerLabel.textAlignment = .left
         headerView.addSubview(headerLabel)
         let headerTapped = UITapGestureRecognizer(target: self, action: #selector(TableViewController.sectionHeaderTapped(_:)))
         headerView.addGestureRecognizer(headerTapped)
         return headerView
     }
     
-    func sectionHeaderTapped(gestureRecognizer : UITapGestureRecognizer){
-        let indexPath = NSIndexPath(forRow: 0, inSection: (gestureRecognizer.view?.tag)!)
+    func sectionHeaderTapped(_ gestureRecognizer : UITapGestureRecognizer){
+        let indexPath = IndexPath(row: 0, section: (gestureRecognizer.view?.tag)!)
         if indexPath.row == 0 {
             sectionCollapsed[indexPath.section] = !sectionCollapsed[indexPath.section]
-            self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
+            self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .fade)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var detailVC: DetailViewController
         
         if let identifier = segue.identifier {
             switch identifier {
             case "DetailSegue":
-                if let navController = segue.destinationViewController as? UINavigationController {
+                if let navController = segue.destination as? UINavigationController {
                     detailVC = navController.topViewController! as! DetailViewController
                 }else {
-                    detailVC = segue.destinationViewController as! DetailViewController
+                    detailVC = segue.destination as! DetailViewController
                 }
                 
                     if let cell = sender as? UITableViewCell {
-                        let indexPath = tableView.indexPathForCell(cell)!
+                        let indexPath = tableView.indexPath(for: cell)!
                         let photo = parkModel.photoInAlbumAtIndex(indexPath.section, photoIndex: indexPath.row)
                         let imageName = photo.imageName
                         let caption = photo.caption

@@ -14,12 +14,12 @@ class CollectionViewController: UICollectionViewController {
 
     let parkModel = ParkModel.sharedInstance
     
-    var currentImageIndexPath:NSIndexPath?
+    var currentImageIndexPath:IndexPath?
     var imageSelected = false
     var scrollView:UIScrollView?
     var cellImageViewFrame:CGRect?
     
-    private let insets = UIEdgeInsetsMake(50.0, 20.0, 50.0, 20.0)
+    fileprivate let insets = UIEdgeInsetsMake(50.0, 20.0, 50.0, 20.0)
     let kBorderWidth:CGFloat = 1.0
     let kMinZoom:CGFloat = 1.0
     let kMaxZoom:CGFloat = 10.0
@@ -39,18 +39,18 @@ class CollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return parkModel.numberOfAlbums
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return parkModel.lengthOfAlbumAtIndex(section)
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         let photo = parkModel.photoInAlbumAtIndex(indexPath.section, photoIndex: indexPath.row)
         
         let image = UIImage(named: photo.imageName)!
@@ -59,13 +59,13 @@ class CollectionViewController: UICollectionViewController {
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "HeaderView", forIndexPath: indexPath) as! HeaderReusableView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderReusableView
             headerView.headerLabel.text! = parkModel.parkTitleAtIndex(indexPath.section)
-            headerView.backgroundColor = UIColor.orangeColor()
-            headerView.layer.borderColor = UIColor.blackColor().CGColor
+            headerView.backgroundColor = UIColor.orange
+            headerView.layer.borderColor = UIColor.black.cgColor
             headerView.layer.borderWidth = kBorderWidth
             return headerView
         default:
@@ -73,38 +73,38 @@ class CollectionViewController: UICollectionViewController {
         }
     }
     
-    func collectionView(collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return insets
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         configureScrollView(indexPath)
         currentImageIndexPath = indexPath
         imageSelected = true
-        self.collectionView!.scrollEnabled = false
+        self.collectionView!.isScrollEnabled = false
     }
     
-    func configureScrollView(indexPath:NSIndexPath)
+    func configureScrollView(_ indexPath:IndexPath)
     {
-        let tabVC = self.parentViewController as! UITabBarController
+        let tabVC = self.parent as! UITabBarController
         let tabBarSize = tabVC.tabBar.bounds
         let viewSize = self.view.bounds.size
         
         //Get offset of imageView so we can animate from current position to new position
         
         let collectionView = self.collectionView!
-        let attributes = collectionView.layoutAttributesForItemAtIndexPath(indexPath)!
+        let attributes = collectionView.layoutAttributesForItem(at: indexPath)!
         let collectionViewFrame = attributes.frame
-        let offSet = collectionView.convertPoint(collectionViewFrame.origin, fromCoordinateSpace: collectionView)
+        let offSet = collectionView.convert(collectionViewFrame.origin, from: collectionView)
         let collectionViewOffset = collectionView.contentOffset
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
         let cellImageView = cell.parkImageView
         
         
-        cellImageViewFrame = CGRect(x: cellImageView.frame.origin.x + offSet.x, y: offSet.y - collectionViewOffset.y, width: cellImageView.frame.size.width, height: cellImageView.frame.size.height)
+        cellImageViewFrame = CGRect(x: (cellImageView?.frame.origin.x)! + offSet.x, y: offSet.y - collectionViewOffset.y, width: (cellImageView?.frame.size.width)!, height: (cellImageView?.frame.size.height)!)
         
         let imageView = UIImageView(frame: cellImageViewFrame!)
         let photo = parkModel.photoInAlbumAtIndex(indexPath.section, photoIndex: indexPath.row)
@@ -113,8 +113,8 @@ class CollectionViewController: UICollectionViewController {
         
         let scrollViewFrame = CGRect(x: 0.0, y: 0.0, width: viewSize.width, height: viewSize.height)
         scrollView = UIScrollView(frame: scrollViewFrame)
-        imageView.contentMode = .ScaleAspectFit
-        imageView.autoresizingMask = [.FlexibleWidth , .FlexibleHeight , .FlexibleLeftMargin , .FlexibleRightMargin , .FlexibleTopMargin , .FlexibleBottomMargin]
+        imageView.contentMode = .scaleAspectFit
+        imageView.autoresizingMask = [.flexibleWidth , .flexibleHeight , .flexibleLeftMargin , .flexibleRightMargin , .flexibleTopMargin , .flexibleBottomMargin]
         
         scrollView!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollectionViewController.imageTapped(_:))))
         //Add imageView to new scrollView. It will be at same position it is relative to the collectionView
@@ -126,13 +126,13 @@ class CollectionViewController: UICollectionViewController {
         scrollView!.zoomScale = kMinZoom
         
         self.view.addSubview(scrollView!)
-        self.view.bringSubviewToFront(scrollView!)
+        self.view.bringSubview(toFront: scrollView!)
         
         //From that position it is now we will animate into a new position and bigger frame creating the expanding effect
-        UIView.animateWithDuration(kAnimationDuration) {
+        UIView.animate(withDuration: kAnimationDuration, animations: {
             imageView.frame = CGRect(x: 0.0 , y: 0.0 ,width: viewSize.width, height: viewSize.height - tabBarSize.height)
-        }
-        scrollView!.backgroundColor = UIColor.whiteColor()
+        }) 
+        scrollView!.backgroundColor = UIColor.white
         
     }
     
@@ -140,15 +140,15 @@ class CollectionViewController: UICollectionViewController {
     /**
      Bringing the image back to its original frame. We have the previous imageFrame as a global variable so now we can just get the scrollView's imageView and animate back to original frame in cell and then remove the superview.
      */
-    func imageTapped(gesture: UITapGestureRecognizer){
+    func imageTapped(_ gesture: UITapGestureRecognizer){
         if scrollView?.zoomScale == 1{
-            UIView.animateWithDuration(kAnimationDuration, animations: {
+            UIView.animate(withDuration: kAnimationDuration, animations: {
                 let imageView = self.scrollView!.subviews[0] as! UIImageView
                 imageView.frame = self.cellImageViewFrame!
                 
-                }, completion: { (let succeeded) in
+                }, completion: { (succeeded) in
                     self.scrollView?.removeFromSuperview()
-                    self.collectionView?.scrollEnabled = true
+                    self.collectionView?.isScrollEnabled = true
             })
             
             imageSelected = false
@@ -157,7 +157,7 @@ class CollectionViewController: UICollectionViewController {
     
     //MARK: - Scroll View Delegate
     
-    override func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if let imageView = scrollView.subviews[0] as? UIImageView {
             return imageView
         }else {
