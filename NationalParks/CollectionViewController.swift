@@ -140,7 +140,7 @@ class CollectionViewController: UICollectionViewController {
     /**
      Bringing the image back to its original frame. We have the previous imageFrame as a global variable so now we can just get the scrollView's imageView and animate back to original frame in cell and then remove the superview.
      */
-    func imageTapped(_ gesture: UITapGestureRecognizer){
+    @objc func imageTapped(_ gesture: UITapGestureRecognizer){
         if scrollView?.zoomScale == 1{
             UIView.animate(withDuration: kAnimationDuration, animations: {
                 let imageView = self.scrollView!.subviews[0] as! UIImageView

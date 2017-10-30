@@ -101,7 +101,7 @@ class TableViewController: UITableViewController {
         return headerView
     }
     
-    func sectionHeaderTapped(_ gestureRecognizer : UITapGestureRecognizer){
+    @objc func sectionHeaderTapped(_ gestureRecognizer : UITapGestureRecognizer){
         let indexPath = IndexPath(row: 0, section: (gestureRecognizer.view?.tag)!)
         if indexPath.row == 0 {
             sectionCollapsed[indexPath.section] = !sectionCollapsed[indexPath.section]
